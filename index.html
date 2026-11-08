@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bail et al. (2018) - Twitter Presentation</title>
+    <!-- Favicon: Inline SVG Twitter Bird -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231da1f2'><path d='M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.823.162-1.258.162-.307 0-.605-.03-.895-.086.603 1.884 2.358 3.222 4.43 3.258-1.595 1.25-3.603 1.995-5.78 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z'/></svg>">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        twitter: {
+                            blue: '#1da1f2',
+                            darkBg: '#15202b',
+                            darkCard: '#192734',
+                            border: '#38444d',
+                            lightText: '#ffffff',
+                            grayText: '#8899a6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            background-color: #15202b;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #15202b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38444d;
+            border-radius: 3px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-tweet {
+            animation: fadeIn 0.25s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Full Screen 100% Width Layout Container -->
+    <div class="w-full h-full grid grid-cols-1 md:grid-cols-12 bg-twitter-darkBg">
+        
+        <!-- Left Sidebar / Navigation (Cols 1-2) -->
+        <nav class="hidden md:flex md:col-span-2 flex-col justify-between p-4 border-r border-twitter-border h-full bg-twitter-darkBg">
+            <div class="flex flex-col gap-4">
+                <div class="text-twitter-blue px-3 py-2">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.823.162-1.258.162-.307 0-.605-.03-.895-.086.603 1.884 2.358 3.222 4.43 3.258-1.595 1.25-3.603 1.995-5.78 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/></svg>
+                </div>
+                <!-- Clean White Icon Navigation Items -->
+                <div class="flex items-center gap-4 px-3 py-3 rounded-full hover:bg-twitter-darkCard cursor-pointer font-bold text-lg text-white">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/><path d="M12 3L2 12h3v8h14v-8h3L12 3z"/></svg>
+                    <span>Home</span>
+                </div>
+                <div class="flex items-center gap-4 px-3 py-3 rounded-full hover:bg-twitter-darkCard cursor-pointer font-semibold text-lg text-twitter-grayText">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.79 0 3.41-.72 4.6-1.88l5.3 5.3 1.06-1.06-5.3-5.3c1.16-1.19 1.88-2.81 1.88-4.6 0-3.59-2.91-6.5-6.5-6.5zm0 2c2.49 0 4.5 2.01 4.5 4.5s-2.01 4.5-4.5 4.5-4.5-2.01-4.5-4.5 2.01-4.5 4.5-4.5z"/></svg>
+                    <span>Explore</span>
+                </div>
+                <div class="flex items-center gap-4 px-3 py-3 rounded-full hover:bg-twitter-darkCard cursor-pointer font-semibold text-lg text-twitter-grayText">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19.99 15.38v-3.88c0-3.15-1.67-5.84-4.7-6.5V3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v1.5c-3.03.66-4.7 3.35-4.7 6.5v3.88l-1.9 1.9v1.22h18.8v-1.22l-1.9-1.9zm-13.8 2.22c0-2.48 1.34-4.6 3.4-5.65.68-.35 1.14-1.06 1.14-1.85V11.5c0-1.66 1.34-3 3-3s3 1.34 3 3v1.6c0 .79.46 1.5 1.14 1.85 2.06 1.05 3.4 3.17 3.4 5.65H6.19zm5.81 4c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/></svg>
+                    <span>Notifications</span>
+                </div>
+                <div class="flex items-center gap-4 px-3 py-3 rounded-full hover:bg-twitter-darkCard cursor-pointer font-semibold text-lg text-twitter-grayText">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h5v2H8v-2z"/></svg>
+                    <span>Bookmarks</span>
+                </div>
+            </div>
+            <div class="text-xs text-twitter-grayText px-3">
+                Media & Politics Presentation
+            </div>
+        </nav>
+
+        <!-- Center Timeline Feed (Cols 3-6) -->
+        <section class="col-span-1 md:col-span-5 flex flex-col h-full border-r border-twitter-border bg-twitter-darkBg">
+            <div class="sticky top-0 bg-twitter-darkBg/90 backdrop-blur border-b border-twitter-border px-4 py-3 flex justify-between items-center z-10">
+                <h1 class="text-xl font-extrabold text-white">Home Timeline</h1>
+                <span id="slideCounter" class="text-xs font-semibold px-2.5 py-1 bg-twitter-darkCard text-twitter-blue rounded-full border border-twitter-border">Tweet 1 / 8</span>
+            </div>
+            <div id="timelineFeed" class="flex-1 overflow-y-auto divide-y divide-twitter-border">
+                <!-- Dynamically populated tweets -->
+            </div>
+        </section>
+
+        <!-- Right Pane: Expanded Unboxed Tweet Detail, Share Section & Comment Thread (Cols 7-12) -->
+        <section class="hidden md:flex md:col-span-5 flex-col h-full bg-twitter-darkBg overflow-y-auto">
+            <div class="sticky top-0 bg-twitter-darkBg/90 backdrop-blur border-b border-twitter-border px-4 py-3 z-10">
+                <h2 class="text-lg font-bold text-white">Tweet Thread</h2>
+            </div>
+            <div id="expandedReader" class="flex flex-col">
+                <!-- Dynamically populated unboxed tweet detail view, engagement bar & comments -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Load external slide data file -->
+    <script src="slides.js"></script>
+    <script>
+        let currentVisibleCount = 1;
+        let devilsAdvocateActive = false;
+
+        const timelineFeed = document.getElementById('timelineFeed');
+        const expandedReader = document.getElementById('expandedReader');
+        const slideCounter = document.getElementById('slideCounter');
+
+        function renderTimeline() {
+            let html = '';
+            for (let i = currentVisibleCount - 1; i >= 0; i--) {
+                const item = slidesData[i];
+                const isActive = (i === currentVisibleCount - 1);
+                html += `
+                    <article onclick="selectTweet(${item.id})" class="p-4 hover:bg-twitter-darkCard/50 cursor-pointer transition ${isActive ? 'bg-twitter-darkCard/80 border-l-4 border-twitter-blue' : ''} animate-tweet">
+                        <div class="flex gap-3">
+                            <div class="w-11 h-11 rounded-full ${item.avatarBg} flex items-center justify-center font-bold text-white text-base flex-shrink-0">
+                                ${item.avatarLetter}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center gap-1.5 text-sm">
+                                    <span class="font-bold text-white text-base truncate hover:underline">${item.author}</span>
+                                    <span class="text-twitter-blue text-xs">✔</span>
+                                    <span class="text-twitter-grayText truncate">${item.handle}</span>
+                                    <span class="text-twitter-grayText">·</span>
+                                    <span class="text-twitter-grayText text-xs">${item.time}</span>
+                                </div>
+                                <p class="text-base font-bold text-white mt-1 leading-snug">${item.headline}</p>
+                                <p class="text-base text-twitter-lightText/90 mt-1.5 leading-normal">${item.tweetText}</p>
+
+                                <!-- Engagement Stats Bar -->
+                                <div class="flex justify-between items-center text-twitter-grayText text-xs mt-3 max-w-md">
+                                    <button class="flex items-center gap-1.5 hover:text-twitter-blue transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                        <span class="text-xs">${item.stats.replies + (isActive && devilsAdvocateActive ? 1 : 0) + item.comments.length}</span>
+                                    </button>
+                                    <button class="flex items-center gap-1.5 hover:text-green-500 transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                        <span class="text-xs">${item.stats.retweets}</span>
+                                    </button>
+                                    <button onclick="toggleLike(event, ${item.id})" class="flex items-center gap-1.5 hover:text-pink-500 transition">
+                                        <svg id="heart-${item.id}" class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                        <span id="likes-count-${item.id}" class="text-xs">${item.stats.likes}</span>
+                                    </button>
+                                    <button class="flex items-center gap-1.5 hover:text-twitter-blue transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+            timelineFeed.innerHTML = html;
+            renderRightPane();
+            slideCounter.textContent = `Tweet ${currentVisibleCount} / ${slidesData.length}`;
+        }
+
+        function renderRightPane() {
+            const activeSlide = slidesData[currentVisibleCount - 1];
+            
+            // Unboxed, natural desktop expanded tweet detail view layout with larger presentation font
+            let html = `
+                <div class="p-6 border-b border-twitter-border">
+                    <!-- Author Info -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-14 h-14 rounded-full ${activeSlide.avatarBg} flex items-center justify-center font-bold text-white text-xl flex-shrink-0">
+                            ${activeSlide.avatarLetter}
+                        </div>
+                        <div>
+                            <div class="font-bold text-white text-lg flex items-center gap-1">
+                                ${activeSlide.author} <span class="text-twitter-blue">✔</span>
+                            </div>
+                            <div class="text-twitter-grayText text-sm">${activeSlide.handle}</div>
+                        </div>
+                    </div>
+
+                    <!-- Headline & Detailed Presentation Content -->
+                    <h2 class="text-2xl font-extrabold text-white mb-3 leading-snug">${activeSlide.headline}</h2>
+                    <div class="text-lg text-twitter-lightText mb-4 leading-relaxed">${activeSlide.tweetText}</div>
+                    <div class="mt-4 pt-4 border-t border-twitter-border/60">
+                        ${activeSlide.detailed}
+                    </div>
+
+                    <!-- Timestamp -->
+                    <div class="mt-5 text-twitter-grayText text-sm border-b border-twitter-border pb-4">
+                        10:42 AM · Nov 8, 2026 · <span class="text-white font-medium">Twitter Web App</span>
+                    </div>
+
+                    <!-- Full Engagement / Share Section (Same as Feed) -->
+                    <div class="flex justify-around items-center text-twitter-grayText py-3.5 border-b border-twitter-border mt-1">
+                        <button class="flex items-center gap-2 hover:text-twitter-blue transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <span class="text-sm font-semibold">${activeSlide.stats.replies + (devilsAdvocateActive ? 1 : 0) + activeSlide.comments.length}</span>
+                        </button>
+                        <button class="flex items-center gap-2 hover:text-green-500 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            <span class="text-sm font-semibold">${activeSlide.stats.retweets}</span>
+                        </button>
+                        <button onclick="toggleLike(event, ${activeSlide.id})" class="flex items-center gap-2 hover:text-pink-500 transition">
+                            <svg id="right-heart-${activeSlide.id}" class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            <span class="text-sm font-semibold">${activeSlide.stats.likes}</span>
+                        </button>
+                        <button class="flex items-center gap-2 hover:text-twitter-blue transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Unique Comment Thread Section -->
+                <div class="p-6 space-y-4">
+                    <h3 class="text-xs font-bold text-twitter-grayText uppercase tracking-wider">Replies</h3>
+            `;
+
+            // Render unique comments for this specific slide
+            activeSlide.comments.forEach(comment => {
+                html += `
+                    <div class="flex gap-3 pb-3 border-b border-twitter-border/40">
+                        <div class="w-10 h-10 rounded-full ${comment.avatarBg} flex items-center justify-center font-bold text-white text-sm flex-shrink-0">${comment.initials}</div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-1 text-xs">
+                                <span class="font-bold text-white text-sm">${comment.author}</span>
+                                <span class="text-twitter-grayText">${comment.handle}</span>
+                            </div>
+                            <p class="text-base text-twitter-lightText mt-1.5 leading-normal">${comment.text}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Devil's Advocate injected comment reply if triggered
+            if (devilsAdvocateActive) {
+                html += `
+                    <div class="flex gap-3 pb-3 border-b border-twitter-border/40 animate-tweet bg-rose-950/20 p-4 rounded-xl border border-rose-600/30">
+                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-bold text-white text-sm flex-shrink-0">DA</div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-1 text-xs">
+                                <span class="font-bold text-rose-400 text-sm">Devil's Advocate</span>
+                                <span class="text-twitter-grayText">@ClassChallenger</span>
+                            </div>
+                            <p class="text-base text-white mt-1.5 leading-normal"><strong>Discussion Challenge:</strong> ${activeSlide.devilsAdvocate}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            expandedReader.innerHTML = html;
+        }
+
+        function selectTweet(id) {
+            currentVisibleCount = id;
+            devilsAdvocateActive = false;
+            renderTimeline();
+        }
+
+        function toggleLike(event, id) {
+            event.stopPropagation();
+            const heartIcon = document.getElementById(`heart-${id}`);
+            const rightHeart = document.getElementById(`right-heart-${id}`);
+            const likesCount = document.getElementById(`likes-count-${id}`);
+            let count = parseInt(likesCount.textContent);
+
+            if (heartIcon && heartIcon.classList.contains('text-pink-500')) {
+                heartIcon.classList.remove('text-pink-500', 'fill-current');
+                if(rightHeart) rightHeart.classList.remove('text-pink-500', 'fill-current');
+                likesCount.textContent = count - 1;
+            } else {
+                if(heartIcon) heartIcon.classList.add('text-pink-500', 'fill-current');
+                if(rightHeart) rightHeart.classList.add('text-pink-500', 'fill-current');
+                likesCount.textContent = count + 1;
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '6') {
+                devilsAdvocateActive = !devilsAdvocateActive;
+                renderRightPane();
+                renderTimeline();
+                return;
+            }
+
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (currentVisibleCount < slidesData.length) {
+                    currentVisibleCount++;
+                    devilsAdvocateActive = false;
+                    renderTimeline();
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentVisibleCount > 1) {
+                    currentVisibleCount--;
+                    devilsAdvocateActive = false;
+                    renderTimeline();
+                }
+            }
+        });
+
+        // Initialize presentation on load
+        renderTimeline();
+    </script>
+</body>
+</html>
